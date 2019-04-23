@@ -1,0 +1,9 @@
+- key: bb8beat
+  title: bb8beat
+  description:
+  fields:
+    - name: counter
+      type: long
+      required: true
+      description: >
+        PLEASE UPDATE DOCUMENTATION

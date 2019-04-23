@@ -1,0 +1,5 @@
+bb8beat
+Copyright 2019 Mark Rubelmann
+
+This product includes software developed by The Apache Software
+Foundation (http://www.apache.org/).
