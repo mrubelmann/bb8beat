@@ -5,3 +5,5 @@
 /bb8beat
 /bb8beat.test
 *.pyc
+/data
+/logs
