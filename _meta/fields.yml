@@ -2,8 +2,12 @@
   title: bb8beat
   description:
   fields:
-    - name: counter
+    - name: x
       type: long
       required: true
-      description: >
-        PLEASE UPDATE DOCUMENTATION
+      description: X coordinate of a collision
+    - name: y
+      type: long
+      required: true
+      description: Y coordinate of a collision
+

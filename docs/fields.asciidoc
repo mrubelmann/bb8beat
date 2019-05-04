@@ -29,15 +29,25 @@ grouped in the following categories:
 None
 
 
-*`counter`*::
+*`x`*::
 +
 --
 type: long
 
 required: True
 
-PLEASE UPDATE DOCUMENTATION
+X coordinate of a collision
 
+--
+
+*`y`*::
++
+--
+type: long
+
+required: True
+
+Y coordinate of a collision
 
 --
 
