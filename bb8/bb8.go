@@ -6,6 +6,7 @@ import (
 
 	"gobot.io/x/gobot"
 	"gobot.io/x/gobot/platforms/ble"
+	"gobot.io/x/gobot/platforms/sphero"
 	gobotBB8 "gobot.io/x/gobot/platforms/sphero/bb8"
 )
 
@@ -13,7 +14,7 @@ import (
 type BB8 interface {
 	Start(callback func()) error
 	Stop() error
-	AddCollisionEventHandler(handler func(s interface{}))
+	AddCollisionEventHandler(handler func(bb8 *bb8, data Collision))
 	SetSpeed(speed uint8)
 	TurnAround()
 	Flash()
@@ -52,8 +53,13 @@ func (b bb8) Stop() error {
 }
 
 // AddCollisionEventHandler registers a callback function for collision events.
-func (b bb8) AddCollisionEventHandler(handler func(s interface{})) {
-	b.driver.On("collision", handler)
+func (b bb8) AddCollisionEventHandler(handler func(bb8 *bb8, data Collision)) {
+	b.driver.On("collision", func(s interface{}) {
+		collisionPacket, ok := s.(sphero.CollisionPacket)
+		if ok {
+			handler(&b, Collision{collisionPacket.X, collisionPacket.Y})
+		}
+	})
 }
 
 // SetSpeed makes BB-8 start rolling.

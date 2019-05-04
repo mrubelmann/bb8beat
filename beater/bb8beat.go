@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/mrubelmann/bb8beat/bb8"
+
 	"github.com/elastic/beats/libbeat/beat"
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/beats/libbeat/logp"
@@ -16,6 +18,7 @@ type Bb8beat struct {
 	done   chan struct{}
 	config config.Config
 	client beat.Client
+	bb8    bb8.BB8
 }
 
 // New creates an instance of bb8beat.
@@ -24,6 +27,10 @@ func New(b *beat.Beat, cfg *common.Config) (beat.Beater, error) {
 	if err := cfg.Unpack(&c); err != nil {
 		return nil, fmt.Errorf("Error reading config file: %v", err)
 	}
+
+	// Instantiate a BB-8.
+	robot := bb8.NewBB8(c.BluetoothID)
+	robot.AddCollisionEventHandler(bb8.OnCollision)
 
 	bt := &Bb8beat{
 		done:   make(chan struct{}),
